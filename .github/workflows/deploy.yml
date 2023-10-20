@@ -5,6 +5,7 @@ on:
     branches:
       - blue-background
       - green-background
+  workflow_dispatch:
 
 jobs:
   deploy:
