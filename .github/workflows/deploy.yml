@@ -3,6 +3,7 @@ name: Deploy to GCP
 on:
   push:
     branches:
+      - main
       - blue-background
       - green-background
   workflow_dispatch:
