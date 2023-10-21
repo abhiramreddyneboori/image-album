@@ -1,38 +1,19 @@
-# Use an official Python runtime as a base image
-FROM python:3.9-slim-buster
+FROM python:3.9-slim
 
-# Set environment variables
-# Use unbuffered mode to receive logs from the output, recommended when running Python within Docker containers
-# It prevents Python from buffering the standard outputs and it's recommended when running Python within Docker containers
-ENV PYTHONUNBUFFERED 1
+# Allow statements and log messages to immediately appear in the Knative logs
+ENV PYTHONUNBUFFERED True
 
-# Set the working directory in the container to /app
-WORKDIR /app
+# Copy local code to the container image.
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY . ./
 
-# Install system dependencies
-# It's often a good idea to install system-level dependencies first and then copy over just the requirements.txt file
-# This allows Docker to cache the step of installing dependencies, making subsequent builds faster
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends gcc libpq-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# Install production dependencies.
+RUN pip install Flask gunicorn
 
-# Copy the requirements.txt file into the container at /app
-COPY requirements.txt /app/
-
-# Install any dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the current directory contents into the container at /app
-# This is done after installing dependencies to leverage Docker cache
-# and avoid reinstalling dependencies if your app code changes but dependencies remain the same
-COPY . /app/
-
-# Make port 8080 available to the world outside this container
-EXPOSE 8080
-
-# Define environment variable
-ENV NAME World
-
-# Run app.py when the container launches
-CMD ["gunicorn", "-b", "0.0.0.0:8080", "main:app"]
+# Run the web service on container startup. Here we use the gunicorn
+# webserver, with one worker process and 8 threads.
+# For environments with multiple CPU cores, increase the number of workers
+# to be equal to the cores available.
+# Timeout is set to 0 to disable the timeouts of the workers to allow Cloud Run to handle instance scaling.
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
