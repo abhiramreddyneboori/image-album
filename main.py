@@ -17,31 +17,31 @@ bucket_name = 'image-upload-bucket4'
 bucket = storage_client.bucket(bucket_name)
 
 # def allowed_file(filename):
-#     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-#     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# @app.route('/upload', methods=['POST'])
-# def upload_file():
-#     try:
-#         file = request.files.get('file')
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    try:
+        file = request.files.get('file')
         
-#         if not file or file.filename == '' or not allowed_file(file.filename):
-#             logging.error("Invalid file type or file missing.")
-#             return jsonify({"error": "Invalid file type"}), 400
+        if not file or file.filename == '' or not allowed_file(file.filename):
+            logging.error("Invalid file type or file missing.")
+            return jsonify({"error": "Invalid file type"}), 400
     
-#     # Upload to Google Cloud Storage
-#     blob = bucket.blob(file.filename)
-#     blob.upload_from_file(file)
+    # Upload to Google Cloud Storage
+    blob = bucket.blob(file.filename)
+    blob.upload_from_file(file)
     
-#     # Save metadata to Firestore
-#     doc_ref = db.collection('images').document(file.filename)
-#     doc_ref.set({
-#         'filename': file.filename,
-#         'content_type': file.content_type,
-#         'uploaded': firestore.SERVER_TIMESTAMP
-#     })
+    # Save metadata to Firestore
+    doc_ref = db.collection('images').document(file.filename)
+    doc_ref.set({
+        'filename': file.filename,
+        'content_type': file.content_type,
+        'uploaded': firestore.SERVER_TIMESTAMP
+    })
     
-#     return redirect('/')
+    return redirect('/')
 
 def list_files():
     # Retrieve image metadata from Firestore
