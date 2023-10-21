@@ -63,7 +63,7 @@ def index():
         image_elements += '<div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4"><div class="card"><a href="https://storage.googleapis.com/image-upload-bucket4/{}" download><img src="https://storage.googleapis.com/image-upload-bucket4/{}" alt="{}" class="img-fluid card-img-top"></a><div class="card-body"><h5 class="card-title">{}</h5></div></div></div>'.format(image["filename"], image["filename"], image["filename"], image["filename"])
     return html_string.format(image_elements)
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
 
 
@@ -89,7 +89,7 @@ html_string = """
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">Upload an Image</div>
         <div class="card-body">
-            <form action="https://us-central1-image-upload-399513.cloudfunctions.net/upload-image/upload" method="post" enctype="multipart/form-data" class="d-flex flex-column align-items-center">
+            <form action="/upload" method="post" enctype="multipart/form-data" class="d-flex flex-column align-items-center">
                 <input type="file" name="file" accept="image/*" required class="mb-3">
                 <button type="submit" class="btn btn-success">Upload</button>
             </form>
