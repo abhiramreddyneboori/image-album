@@ -5,8 +5,8 @@ from google.cloud import storage, firestore
 
 app = Flask(__name__)
 
-# # Initialize logging
-# logging.basicConfig(level=logging.DEBUG)
+# Initialize logging
+logging.basicConfig(level=logging.DEBUG)
 
 # # Initialize Firestore
 # db = firestore.Client()
@@ -43,13 +43,13 @@ app = Flask(__name__)
     
 #     return redirect('/')
 
-def list_files():
-    # Retrieve image metadata from Firestore
-    images = db.collection('images').stream()
+# def list_files():
+#     # Retrieve image metadata from Firestore
+#     images = db.collection('images').stream()
     
-    files = []
-    for image in images:
-        files.append(image.to_dict())
+#     files = []
+#     for image in images:
+#         files.append(image.to_dict())
     
 #     return files
 
@@ -59,11 +59,12 @@ def list_files():
 
 @app.route('/', methods=['GET'])
 def index():
-    images = list_files()
-    image_elements = ""
-    for image in images:
-        image_elements += '<div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4"><div class="card"><a href="https://storage.googleapis.com/image-upload-bucket4/{}" download><img src="https://storage.googleapis.com/image-upload-bucket4/{}" alt="{}" class="img-fluid card-img-top"></a><div class="card-body"><h5 class="card-title">{}</h5></div></div></div>'.format(image["filename"], image["filename"], image["filename"], image["filename"])
-    return html_string.format(image_elements)
+    # images = list_files()
+    # image_elements = ""
+    # for image in images:
+    #     image_elements += '<div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4"><div class="card"><a href="https://storage.googleapis.com/image-upload-bucket4/{}" download><img src="https://storage.googleapis.com/image-upload-bucket4/{}" alt="{}" class="img-fluid card-img-top"></a><div class="card-body"><h5 class="card-title">{}</h5></div></div></div>'.format(image["filename"], image["filename"], image["filename"], image["filename"])
+    # return html_string.format(image_elements)
+    return "xxx"
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
