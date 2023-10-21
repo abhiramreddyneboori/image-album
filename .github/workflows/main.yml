@@ -1,0 +1,43 @@
+name: Deploy Cloud Function
+
+on:
+  push:
+    branches:
+      - blue-background
+      - green-background
+
+env:
+  GCP_PROJECT_ID: upload-image-399513
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup GCP Service Account
+        uses: google-github-actions/setup-gcloud@main
+        with:
+          project_id: ${{ env.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Deploy Cloud Function
+        id: deploy
+        uses: google-github-actions/deploy-cloud-functions@main
+        with:
+          name: upload-image
+          runtime: python311
+          project_id: ${{ env.GCP_PROJECT_ID }}
+          entry_point: upload-image
+          source_dir: .
+
+      - name: Make the URL authenticated
+        run: |
+          gcloud functions add-iam-policy-binding upload-image \
+            --member="allUsers" \
+            --role="roles/cloudfunctions.invoker"
+
+      - name: Test the URL
+        run: curl "${{ steps.deploy.outputs.url }}"
