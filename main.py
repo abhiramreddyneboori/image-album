@@ -29,19 +29,27 @@ def upload_file():
             logging.error("Invalid file type or file missing.")
             return jsonify({"error": "Invalid file type"}), 400
     
-#     # Upload to Google Cloud Storage
-#     blob = bucket.blob(file.filename)
-#     blob.upload_from_file(file)
+        # Upload to Google Cloud Storage
+        blob = bucket.blob(file.filename)
+        blob.upload_from_file(file)
+        logging.info(f"File {file.filename} uploaded to {bucket_name}.")
     
-#     # Save metadata to Firestore
-#     doc_ref = db.collection('images').document(file.filename)
-#     doc_ref.set({
-#         'filename': file.filename,
-#         'content_type': file.content_type,
-#         'uploaded': firestore.SERVER_TIMESTAMP
-#     })
+        # Save metadata to Firestore
+        doc_ref = db.collection('images').document(file.filename)
+        data = {
+            'filename': file.filename,
+            'content_type': file.content_type,
+            'uploaded': firestore.SERVER_TIMESTAMP
+        }
+        doc_ref.set(data)
+        logging.info(f"Metadata for {file.filename} recorded in Firestore.")
+
+        return redirect('/')
     
-    return redirect('/')
+    except Exception as e:
+        logging.error(f"An error occurred: {e}")
+        return jsonify({"error": str(e)}), 500
+
 
 def list_files():
     # Retrieve image metadata from Firestore
@@ -62,8 +70,7 @@ def index():
     images = list_files()
     image_elements = ""
     for image in images:        
-    #     image_elements += '<div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4"><div class="card"><a href="https://storage.googleapis.com/image-upload-bucket4/{}" download><img src="https://storage.googleapis.com/image-upload-bucket4/{}" alt="{}" class="img-fluid card-img-top"></a><div class="card-body"><h5 class="card-title">{}</h5></div></div></div>'.format(image["filename"], image["filename"], image["filename"], image["filename"])
-        image_elements += '<div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4"></div>'
+        # image_elements += '<div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4"><div class="card"><a href="https://storage.googleapis.com/image-upload-bucket4/{}" download><img src="https://storage.googleapis.com/image-upload-bucket4/{}" alt="{}" class="img-fluid card-img-top"></a><div class="card-body"><h5 class="card-title">{}</h5></div></div></div>'.format(image["filename"], image["filename"], image["filename"], image["filename"])
     return html_string.format(image_elements)
 
 if __name__ == "__main__":
