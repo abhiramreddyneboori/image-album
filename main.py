@@ -70,46 +70,46 @@ if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
 
 
-# HTML content integrated within the Python script
-html_string = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Upload</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body style="background-color: blue;">
+# # HTML content integrated within the Python script
+# html_string = """
+# <!DOCTYPE html>
+# <html lang="en">
+# <head>
+#     <meta charset="UTF-8">
+#     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+#     <title>Image Upload</title>
+#     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+# </head>
+# <body style="background-color: blue;">
 
-<div class="container mt-5">
-    <div class="text-center mb-5">
-        <h2 class="display-4">Image Uploader (Serverless)</h2>
-        <p class="lead">Project 2</p>
-    </div>
+# <div class="container mt-5">
+#     <div class="text-center mb-5">
+#         <h2 class="display-4">Image Uploader (Serverless)</h2>
+#         <p class="lead">Project 2</p>
+#     </div>
     
-    <!-- Upload Form -->
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">Upload an Image</div>
-        <div class="card-body">
-            <form action="/upload" method="post" enctype="multipart/form-data" class="d-flex flex-column align-items-center">
-                <input type="file" name="file" accept="image/*" required class="mb-3">
-                <button type="submit" class="btn btn-success">Upload</button>
-            </form>
-        </div>
-    </div>
+#     <!-- Upload Form -->
+#     <div class="card mb-4">
+#         <div class="card-header bg-primary text-white">Upload an Image</div>
+#         <div class="card-body">
+#             <form action="/upload" method="post" enctype="multipart/form-data" class="d-flex flex-column align-items-center">
+#                 <input type="file" name="file" accept="image/*" required class="mb-3">
+#                 <button type="submit" class="btn btn-success">Upload</button>
+#             </form>
+#         </div>
+#     </div>
     
-    <!-- Uploaded Images Grid -->
-    <h3 class="mb-3">Uploaded Images</h3>
-    <div class="row">
-        {}
-    </div>
-    <br><br>
-</div>
+#     <!-- Uploaded Images Grid -->
+#     <h3 class="mb-3">Uploaded Images</h3>
+#     <div class="row">
+#         {}
+#     </div>
+#     <br><br>
+# </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
-"""
+# <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+# <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+# <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+# </body>
+# </html>
+# """
