@@ -22,12 +22,12 @@ def allowed_file(filename):
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-#     try:
-#         file = request.files.get('file')
+    try:
+        file = request.files.get('file')
         
-#         if not file or file.filename == '' or not allowed_file(file.filename):
-#             logging.error("Invalid file type or file missing.")
-#             return jsonify({"error": "Invalid file type"}), 400
+        if not file or file.filename == '' or not allowed_file(file.filename):
+            logging.error("Invalid file type or file missing.")
+            return jsonify({"error": "Invalid file type"}), 400
     
 #     # Upload to Google Cloud Storage
 #     blob = bucket.blob(file.filename)
