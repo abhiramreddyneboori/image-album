@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - blue-background
+      - green-background
 
 env:
   GCP_PROJECT_ID: ${{ env.GCP_PROJECT_ID }}
