@@ -52,6 +52,12 @@ def list_files():
     
     return files
 
+
+@app.route('/')
+def home():
+    return "Hello, this is home page!"
+
+
 @app.route('/list', methods=['GET'])
 def list_images():
     return jsonify(list_files())
