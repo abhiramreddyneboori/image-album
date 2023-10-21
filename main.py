@@ -8,13 +8,13 @@ app = Flask(__name__)
 # Initialize logging
 logging.basicConfig(level=logging.DEBUG)
 
-# # Initialize Firestore
-# db = firestore.Client()
+# Initialize Firestore
+db = firestore.Client()
 
-# # Initialize Cloud Storage
-# storage_client = storage.Client()
-# bucket_name = 'image-upload-bucket4'
-# bucket = storage_client.bucket(bucket_name)
+# Initialize Cloud Storage
+storage_client = storage.Client()
+bucket_name = 'image-upload-bucket4'
+bucket = storage_client.bucket(bucket_name)
 
 # def allowed_file(filename):
 #     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
