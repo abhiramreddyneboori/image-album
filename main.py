@@ -96,8 +96,8 @@ html_string = """
 
 <div class="container mt-5">
     <div class="text-center mb-5">
-        <h2 class="display-4">Image Uploader (Serverless)</h2>
-        <p class="lead">Project 2</p>
+        <h2 class="display-4">Image Uploader (Serverless CI/CD)</h2>
+        <p class="lead">Project 3</p>
     </div>
     
     <!-- Upload Form -->
