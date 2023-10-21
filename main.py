@@ -59,12 +59,12 @@ def list_images():
 
 @app.route('/', methods=['GET'])
 def index():
-    # images = list_files()
-    # image_elements = ""
-    # for image in images:
+    images = list_files()
+    image_elements = ""
+    for image in images:
     #     image_elements += '<div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4"><div class="card"><a href="https://storage.googleapis.com/image-upload-bucket4/{}" download><img src="https://storage.googleapis.com/image-upload-bucket4/{}" alt="{}" class="img-fluid card-img-top"></a><div class="card-body"><h5 class="card-title">{}</h5></div></div></div>'.format(image["filename"], image["filename"], image["filename"], image["filename"])
-    # return html_string.format(image_elements)
-    return html_string
+    return html_string.format(image_elements)
+    # return html_string
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
