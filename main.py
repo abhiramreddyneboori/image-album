@@ -20,8 +20,8 @@ def allowed_file(filename):
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-# @app.route('/upload', methods=['POST'])
-# def upload_file():
+@app.route('/upload', methods=['POST'])
+def upload_file():
 #     try:
 #         file = request.files.get('file')
         
@@ -41,7 +41,7 @@ def allowed_file(filename):
 #         'uploaded': firestore.SERVER_TIMESTAMP
 #     })
     
-#     return redirect('/')
+    return redirect('/')
 
 def list_files():
     # Retrieve image metadata from Firestore
