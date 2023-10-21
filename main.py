@@ -43,19 +43,19 @@ logging.basicConfig(level=logging.DEBUG)
     
 #     return redirect('/')
 
-# def list_files():
-#     # Retrieve image metadata from Firestore
-#     images = db.collection('images').stream()
+def list_files():
+    # Retrieve image metadata from Firestore
+    images = db.collection('images').stream()
     
-#     files = []
-#     for image in images:
-#         files.append(image.to_dict())
+    files = []
+    for image in images:
+        files.append(image.to_dict())
     
-#     return files
+    return files
 
-# @app.route('/list', methods=['GET'])
-# def list_images():
-#     return jsonify(list_files())
+@app.route('/list', methods=['GET'])
+def list_images():
+    return jsonify(list_files())
 
 @app.route('/', methods=['GET'])
 def index():
