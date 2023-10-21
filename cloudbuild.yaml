@@ -1,1 +1,11 @@
 
+steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - functions
+  - deploy
+  - your-function-name
+  - --source=.
+  - --runtime=python310
+  - --trigger-http
+  - --allow-unauthenticated
