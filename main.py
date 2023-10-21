@@ -1,4 +1,3 @@
-import functions_framework
 import os
 import logging
 from flask import Flask, request, jsonify, redirect
@@ -40,7 +39,7 @@ def upload_file():
         'uploaded': firestore.SERVER_TIMESTAMP
     })
     
-    return redirect("https://us-central1-image-upload-399513.cloudfunctions.net/upload-image/")
+    return redirect('/')
 
 def list_files():
     # Retrieve image metadata from Firestore
@@ -56,24 +55,13 @@ def list_files():
 def list_images():
     return jsonify(list_files())
 
-@functions_framework.http
-def hello_http(request):
-    logging.info("Path: %s | Method: %s", request.path, request.method)
-    
-    if request.path == '/upload' and request.method == 'POST':
-        return upload_file()
-    elif request.path == '/list' and request.method == 'GET':
-        return list_images()
-    elif request.path == '/' and request.method == 'GET':
-        images = list_files()
-        image_elements = ""
-        for image in images:
-            image_elements += '<div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4"><div class="card"><a href="https://storage.googleapis.com/image-upload-bucket4/{}" download><img src="https://storage.googleapis.com/image-upload-bucket4/{}" alt="{}" class="img-fluid card-img-top"></a><div class="card-body"><h5 class="card-title">{}</h5></div></div></div>'.format(image["filename"], image["filename"], image["filename"], image["filename"])
-
-        return html_string.format(image_elements)
-    else:
-        logging.error("Invalid request for path: %s and method: %s", request.path, request.method)
-        return jsonify({"error": "Invalid request"}), 400
+@app.route('/', methods=['GET'])
+def index():
+    images = list_files()
+    image_elements = ""
+    for image in images:
+        image_elements += '<div class="col-lg-3 col-md-4 col-sm-6 col-12 mt-4"><div class="card"><a href="https://storage.googleapis.com/image-upload-bucket4/{}" download><img src="https://storage.googleapis.com/image-upload-bucket4/{}" alt="{}" class="img-fluid card-img-top"></a><div class="card-body"><h5 class="card-title">{}</h5></div></div></div>'.format(image["filename"], image["filename"], image["filename"], image["filename"])
+    return html_string.format(image_elements)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))
