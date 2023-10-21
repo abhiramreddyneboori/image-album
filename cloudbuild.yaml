@@ -4,7 +4,7 @@ steps:
   args:
   - functions
   - deploy
-  - your-function-name
+  - image-upload
   - --source=.
   - --runtime=python310
   - --trigger-http
