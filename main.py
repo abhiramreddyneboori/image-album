@@ -92,7 +92,7 @@ html_string = """
     <title>Image Upload</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body style="background-color: blue;">
+<body style="background-color: red;">
 
 <div class="container mt-5">
     <div class="text-center mb-5">
